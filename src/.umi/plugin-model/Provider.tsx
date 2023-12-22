@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import initialState from '/Users/joey/Desktop/new 6156 project/src/.umi/plugin-initial-state/models/initialState';
+import initialState from '/Users/jordonez/sample/src/.umi/plugin-initial-state/models/initialState';
 
 // @ts-ignore
 import Dispatcher from './helpers/dispatcher';

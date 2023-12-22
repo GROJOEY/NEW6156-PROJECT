@@ -1,9 +1,11 @@
-
 import LayOut from "../../components/Layout";
 import styles from "./index.less"
 import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from 'antd';
 import Tab from "./Table";
+import { useSelector } from 'react-redux';
+import { Provider } from "react-redux";
+import store from '../../store';
 const url = "order/orders";
 const Order = () => {
     const [data, setData] = useState([]);
@@ -32,7 +34,8 @@ const Order = () => {
     }
     a();
   }
-
+    const loginValues = useSelector((state) => state.loginValues);
+    console.log(loginValues);
     useEffect(()=>{
         const fetchData = async () => {
             try {
@@ -52,7 +55,7 @@ const Order = () => {
           fetchData();
     },[refresh])
   
-    return (
+    return (<Provider store={store}>
         <LayOut>
           <Search
           className= {styles.Search}
@@ -64,6 +67,7 @@ const Order = () => {
     />
             <Tab data = {data} onDelete = {onDelete}/>
         </LayOut>
+        </Provider>
     )
 }
 export default Order;

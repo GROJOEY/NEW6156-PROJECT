@@ -4,19 +4,23 @@ import styles from './index.less';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { log } from '@antv/g2plot/lib/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateLoginValues } from '../../actions';
+import store from '../../store';
+import { Provider } from "react-redux"
 const onFinishFailed = (errorInfo) => {
   
 };
 const url = "api/peopleAccount";
-const url2 = 'api//peopleAccount/usernameAndPassword';
+const url2 = 'api/login';
 const url3 = 'api/peopleInfo'
 const App = () => {
   const [ profile, setProfile ] = useState([]);
   const [state, setState] = useState(null);
   const [registdata, setRegistData] = useState();
   const [logindata, setLoginData] = useState();
-    const clientId = '216846483540-s7p8m9tl7bjth9duhi7orcfhetk7kk78.apps.googleusercontent.com';
-  
+  const clientId = '216846483540-s7p8m9tl7bjth9duhi7orcfhetk7kk78.apps.googleusercontent.com';
+
     useEffect(() => {
         const initClient = () => {
             gapi.client.init({
@@ -90,7 +94,7 @@ const App = () => {
       }
       console.log(registdata)
       if (registdata == 1201) {
-        window.location.href = '/table';
+        window.location.href = '/Order';
       }
     }
     signup();
@@ -108,21 +112,24 @@ const App = () => {
     const signin = async () => {
       if (state != null) {
         const response = await fetch(url2, {
-          method: "GET",
+          method: "POST",
           body: JSON.stringify({
             username : state.username,
-            password : state.Password
+            password : state.password
           }),
           headers: {
             "Content-Type": "application/json",
           },
         })
         const json = await response.json();
-        console.log(json);
+        console.log("this is the json: ", json);
         setLoginData(json.flag);
+        updateLoginValues(state.role);
+        
       }
+      console.log(logindata, "logindata")
       if(logindata == 1101) {
-        window.location.href = '/table';
+        window.location.href = '/Order';
       }
     }
     signin();
@@ -138,7 +145,10 @@ const App = () => {
   };
 
   const [form] = Form.useForm();
-  return(<>
+  return(
+  <Provider store={store}>
+  
+  <>
   <Form form = {form}
     name="basic"
     labelCol={{
@@ -221,7 +231,8 @@ const App = () => {
               className={styles.google}
           />
           
-  </>)
+  </>
+  </Provider>)
 };
 
 export default App;
