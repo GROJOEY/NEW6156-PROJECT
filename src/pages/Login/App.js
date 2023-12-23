@@ -5,8 +5,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { log } from '@antv/g2plot/lib/utils';
 import { updateLoginValues } from '../../actions';
-import store from '../../store';
-import { Provider } from "react-redux";
+
 const onFinishFailed = (errorInfo) => {
   
 };
@@ -148,7 +147,6 @@ const App = () => {
 
   const [form] = Form.useForm();
   return(
-  <Provider store={store}>
   
   <>
   <Form form = {form}
@@ -234,7 +232,7 @@ const App = () => {
           />
           
   </>
-  </Provider>)
+  )
 };
 
 export default App;
