@@ -1,1 +1,2 @@
-module.exports = require('./lib/dynamic');
+require('./warnAboutDeprecatedCJSRequire.js')('dynamic');
+module.exports = require('./dist/dynamic');

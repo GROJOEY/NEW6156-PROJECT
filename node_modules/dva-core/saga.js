@@ -1,1 +1,1 @@
-module.exports = require('redux-saga/lib');
+module.exports = require('redux-saga');

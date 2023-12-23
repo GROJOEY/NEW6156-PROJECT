@@ -7,11 +7,44 @@ import styles from './index.less';
 import { Layout, Menu, Button } from 'antd';
 import MenuItem from 'antd/lib/menu/MenuItem';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 const { Header, Sider, Content } = Layout;
-
 const LayOut = (props) => {
+  const getlonlat = "http://ip-api.com/json";
+  const url = "https://api.openweathermap.org/data/2.5/weather?"
   const [collapsed, setCollapsed] = useState(false);
-
+  const [lonlat, setLonlat] = useState([]);
+  const [temp, setTemp] = useState([]);
+  useEffect(()=> {
+    const fetchlon = async() => {
+      const res = await fetch(getlonlat);
+      const result = await res.json();
+      setLonlat({
+        lon: result.lon,
+        lat : result.lat
+      });
+    }
+    fetchlon();
+  },[])
+  useEffect(()=> {
+    const fetchData = async() =>{
+      try {
+        const response = await fetch (url + "lat=" + lonlat.lat.toString() +"&"+ "lon=" + lonlat.lon.toString() + "&appid=fee3017762c8a455c971d67d83f251d4");
+        const json = await response.json();
+        console.log(json, "json")
+        console.log(json.main, "main")
+        setTemp ({
+          "weather" :json.weather[0].main,
+          "temp":json.main.temp,
+        })
+      } catch(error){
+      }
+      finally {
+      }
+    }
+    fetchData();
+  },[lonlat])
+  console.log(temp)
   return (
     <Layout className={styles.layout}>
       <Sider trigger={null} collapsible collapsed={collapsed} className={styles.Sider}>
@@ -29,16 +62,8 @@ const LayOut = (props) => {
             backgroundColor: 'white',
           }}
         >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
+          <div className={styles.weather}>{Math.floor((parseInt(temp.temp) - 273.15))}℃    </div>
+          <div className={styles.weather2}>{temp.weather + "   "}</div>
         </Header>
         <Content
           style={{

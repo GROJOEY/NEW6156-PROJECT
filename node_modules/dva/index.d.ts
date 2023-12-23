@@ -1,13 +1,18 @@
 import {
   Reducer,
+  Action,
   AnyAction,
   ReducersMapObject,
-  Dispatch,
   MiddlewareAPI,
-  StoreEnhancer
+  StoreEnhancer,
+  bindActionCreators
 } from 'redux';
 
 import { History } from "history";
+
+export interface Dispatch<A extends Action = AnyAction> {
+  <T extends A>(action: T): Promise<any> | T;
+}
 
 export interface onActionFunc {
   (api: MiddlewareAPI<any>): void,
@@ -29,6 +34,7 @@ export interface Hooks {
 }
 
 export type DvaOption = Hooks & {
+  namespacePrefixWarning?: boolean,
   initialState?: Object,
   history?: Object,
 }
@@ -44,7 +50,7 @@ export interface EffectsCommandMap {
 
 export type Effect = (action: AnyAction, effects: EffectsCommandMap) => void;
 export type EffectType = 'takeEvery' | 'takeLatest' | 'watcher' | 'throttle';
-export type EffectWithType = [Effect, { type : EffectType }];
+export type EffectWithType = [Effect, { type: EffectType }];
 export type Subscription = (api: SubscriptionAPI, done: Function) => void;
 export type ReducersMapObjectWithEnhancer = [ReducersMapObject, ReducerEnhancer];
 
@@ -120,12 +126,19 @@ export interface DvaInstance {
 
 export default function dva(opts?: DvaOption): DvaInstance;
 
-/**
- * Connects a React component to Dva.
- */
-export function connect(
-  mapStateToProps?: Function,
-  mapDispatchToProps?: Function,
-  mergeProps?: Function,
-  options?: Object
-): Function;
+export { bindActionCreators };
+
+export {
+  connect, connectAdvanced, useSelector, useDispatch, useStore,
+  DispatchProp, shallowEqual
+} from 'react-redux';
+
+import * as routerRedux from 'connected-react-router';
+export { routerRedux };
+
+import * as fetch from 'isomorphic-fetch';
+export { fetch };
+
+import * as router from 'react-router-dom';
+export { router };
+export { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';

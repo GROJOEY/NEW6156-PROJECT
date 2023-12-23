@@ -1,10 +1,10 @@
 const initialState = {
-    loginValues: '',
+    loginValues: "",
   };
 
 const formReducer = (state = initialState, action) => {
 switch (action.type) {
-    case 'UPDATE_INPUT_FIELD':
+    case 'UPDATE_LOGIN_VALUES':
     return {
         ...state,
         loginValues: action.payload,

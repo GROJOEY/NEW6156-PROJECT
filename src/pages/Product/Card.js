@@ -35,17 +35,16 @@ const ACard = (props) => {
     // const name = data.name
     const name = data.productName
     const picture = {
-        'BNC' : BNCImage,
-        'DKZ_Series' : DKZ_Series,
-        'N' : N,
-        'N:SMA_KJ' : N_SMA_KJ,
-        'SMP plug' : SMP_plug,
-        'SSMA' : SSMA,
-        'TNC' : TNC,
-        'MCX' : MCX
+        'BNC' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/DKZ+Series.png",
+        'DKZ_Series' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/DKZ+Series.png",
+        'N' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/N.png",
+        'N:SMA_KJ' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/N%3ASMA-KJ.png",
+        'SMP plug' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/SMP+plug.png",
+        'SSMA' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/SSMA.png",
+        'TNC' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/TNC.png",
+        'MCX' : "https://joey6156.s3.us-east-2.amazonaws.com/6156_Project/MCX.png"
     }
     const { Meta } = Card;
-  
     return(
   <Card
     style={{

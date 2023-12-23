@@ -4,10 +4,9 @@ import styles from './index.less';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { log } from '@antv/g2plot/lib/utils';
-import { useDispatch, useSelector } from 'react-redux';
 import { updateLoginValues } from '../../actions';
 import store from '../../store';
-import { Provider } from "react-redux"
+import { Provider } from "react-redux";
 const onFinishFailed = (errorInfo) => {
   
 };
@@ -89,7 +88,7 @@ const App = () => {
           },
         })
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         setRegistData(json.flag);
       }
       console.log(registdata)
@@ -123,13 +122,16 @@ const App = () => {
         })
         const json = await response.json();
         console.log("this is the json: ", json);
+        ;
+       
         setLoginData(json.flag);
-        updateLoginValues(state.role);
         
       }
       console.log(logindata, "logindata")
       if(logindata == 1101) {
+        setTimeout(5000);
         window.location.href = '/Order';
+
       }
     }
     signin();
