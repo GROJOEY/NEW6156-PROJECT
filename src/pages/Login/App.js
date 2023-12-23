@@ -128,7 +128,6 @@ const App = () => {
       }
       console.log(logindata, "logindata")
       if(logindata == 1101) {
-        setTimeout(5000);
         window.location.href = '/Order';
 
       }
